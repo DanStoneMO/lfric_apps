@@ -51,6 +51,7 @@ module jedi_lfric_datetime_mod
     procedure, public  :: add_seconds
 
     procedure, public  :: to_string
+    procedure, public  :: to_jedi_string
     procedure, public  :: print
 
     ! new_datetime = datetime
@@ -362,6 +363,47 @@ contains
     iso_datetime = trim(iso_datetime) // temp_str_2
 
   end subroutine to_string
+
+  subroutine to_jedi_string( self, iso_datetime )
+
+    implicit none
+
+    class( jedi_datetime_type ),    intent(in) :: self
+    character(str_def),          intent(inout) :: iso_datetime
+
+    integer(i_timestep) :: year
+    integer(i_timestep) :: month
+    integer(i_timestep) :: day
+
+    integer(i_timestep) :: hour
+    integer(i_timestep) :: minute
+    integer(i_timestep) :: second
+
+    character(len=4) :: temp_str_4
+    character(len=2) :: temp_str_2
+    character(len=1) :: dash, colon
+
+    call JDN_to_YYYYMMDD( self%date, year, month, day )
+    call seconds_to_hhmmss( self%time, hour, minute, second )
+
+    dash  = '-'
+    colon = ':'
+
+    write ( temp_str_4, '(I4)' ) year
+    iso_datetime = temp_str_4 // dash
+    write ( temp_str_2, '(I2.2)' ) month
+    iso_datetime = trim(iso_datetime) // temp_str_2 // dash
+    write ( temp_str_2, '(I2.2)' ) day
+    iso_datetime = trim(iso_datetime) // temp_str_2
+
+    write ( temp_str_2, '(I2.2)' ) hour
+    iso_datetime = trim(iso_datetime) // 'T' // temp_str_2 // colon
+    write ( temp_str_2, '(I2.2)' ) minute
+    iso_datetime = trim(iso_datetime) // temp_str_2 // colon
+    write ( temp_str_2, '(I2.2)' ) second
+    iso_datetime = trim(iso_datetime) // temp_str_2 // 'Z'
+
+  end subroutine to_jedi_string
 
   !> @brief Writes the curent dateime via log_event
   subroutine print( self )
