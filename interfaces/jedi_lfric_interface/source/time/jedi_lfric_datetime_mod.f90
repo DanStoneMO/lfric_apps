@@ -319,7 +319,7 @@ contains
 
   end function is_less_than
 
-  !> @brief Returns the datetime as an iso string (UTC)
+  !> @brief Returns the datetime as a yyyy-mm-dd hh:mm:ss string (UTC)
   !!
   !> @param [inout] iso_datetime The string to return
   subroutine to_string( self, iso_datetime )
@@ -327,7 +327,7 @@ contains
     implicit none
 
     class( jedi_datetime_type ),    intent(in) :: self
-    character(str_def),          intent(inout) :: iso_datetime
+    character(str_def),            intent(out) :: iso_datetime
 
     integer(i_timestep) :: year
     integer(i_timestep) :: month
@@ -364,12 +364,15 @@ contains
 
   end subroutine to_string
 
+  !> @brief Returns the datetime as an ISO string (UTC) compatible with JEDI
+  !!
+  !> @param [inout] iso_datetime The string to return
   subroutine to_jedi_string( self, iso_datetime )
 
     implicit none
 
     class( jedi_datetime_type ),    intent(in) :: self
-    character(str_def),          intent(inout) :: iso_datetime
+    character(str_def),            intent(out) :: iso_datetime
 
     integer(i_timestep) :: year
     integer(i_timestep) :: month
