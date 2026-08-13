@@ -51,7 +51,7 @@ module jedi_lfric_datetime_mod
     procedure, public  :: add_seconds
 
     procedure, public  :: to_string
-    procedure, public  :: to_jedi_string
+    procedure, public  :: to_iso_string
     procedure, public  :: print
 
     ! new_datetime = datetime
@@ -367,7 +367,7 @@ contains
   !> @brief Returns the datetime as an ISO string (UTC) compatible with JEDI
   !!
   !> @param [inout] iso_datetime The string to return
-  subroutine to_jedi_string( self, iso_datetime )
+  subroutine to_iso_string( self, iso_datetime )
 
     implicit none
 
@@ -406,7 +406,7 @@ contains
     write ( temp_str_2, '(I2.2)' ) second
     iso_datetime = trim(iso_datetime) // temp_str_2 // 'Z'
 
-  end subroutine to_jedi_string
+  end subroutine to_iso_string
 
   !> @brief Writes the curent dateime via log_event
   subroutine print( self )
