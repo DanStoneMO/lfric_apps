@@ -392,19 +392,8 @@ contains
     dash  = '-'
     colon = ':'
 
-    write ( temp_str_4, '(I4)' ) year
-    iso_datetime = temp_str_4 // dash
-    write ( temp_str_2, '(I2.2)' ) month
-    iso_datetime = trim(iso_datetime) // temp_str_2 // dash
-    write ( temp_str_2, '(I2.2)' ) day
-    iso_datetime = trim(iso_datetime) // temp_str_2
-
-    write ( temp_str_2, '(I2.2)' ) hour
-    iso_datetime = trim(iso_datetime) // 'T' // temp_str_2 // colon
-    write ( temp_str_2, '(I2.2)' ) minute
-    iso_datetime = trim(iso_datetime) // temp_str_2 // colon
-    write ( temp_str_2, '(I2.2)' ) second
-    iso_datetime = trim(iso_datetime) // temp_str_2 // 'Z'
+    write(iso_datetime, "(i4,'-',i2.2,'-',i2.2,'T',i2.2,':',i2.2,':',i2.2,'Z')") &
+      year, month, day, hour, minute, second
 
   end subroutine to_iso_string
 
