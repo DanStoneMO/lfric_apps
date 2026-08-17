@@ -382,15 +382,8 @@ contains
     integer(i_timestep) :: minute
     integer(i_timestep) :: second
 
-    character(len=4) :: temp_str_4
-    character(len=2) :: temp_str_2
-    character(len=1) :: dash, colon
-
     call JDN_to_YYYYMMDD( self%date, year, month, day )
     call seconds_to_hhmmss( self%time, hour, minute, second )
-
-    dash  = '-'
-    colon = ':'
 
     write(iso_datetime, "(i4,'-',i2.2,'-',i2.2,'T',i2.2,':',i2.2,':',i2.2,'Z')") &
       year, month, day, hour, minute, second
